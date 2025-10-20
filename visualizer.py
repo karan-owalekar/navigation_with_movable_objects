@@ -607,7 +607,7 @@ class PathfindingVisualizer:
             self.reset_grid()
         elif button_name == 'clear':
             if not self.running_algorithm:
-                self.pathfinder.reset()
+                self.pathfinder.reset(restore_obstacle=True)
                 
     def handle_mouse_drag(self, pos: Tuple[int, int]):
         """Handle mouse drag events for drawing walls"""
@@ -666,7 +666,7 @@ class PathfindingVisualizer:
             
         elif key == pygame.K_c:
             if not self.running_algorithm:
-                self.pathfinder.reset()
+                self.pathfinder.reset(restore_obstacle=True)
                 
         elif key == pygame.K_PLUS or key == pygame.K_EQUALS:
             self.algorithm_speed = max(10, self.algorithm_speed - 20)
@@ -691,7 +691,7 @@ class PathfindingVisualizer:
                 self.pathfinder.execute_next_world_step()
                 return
 
-            self.pathfinder.reset()
+            self.pathfinder.reset(restore_obstacle=False)
             
             # Check if we need push mechanics
             movable_obstacles = self.pathfinder.get_movable_obstacles()

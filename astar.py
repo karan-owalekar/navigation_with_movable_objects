@@ -70,7 +70,7 @@ class AStarPathfinder:
         """Set callback function for visualization updates"""
         self.visualization_callback = callback
         
-    def reset(self):
+    def reset(self, restore_obstacle: bool = False):
         """Reset algorithm state"""
         self.open_set.clear()
         self.open_set_hash.clear()
@@ -84,9 +84,12 @@ class AStarPathfinder:
         self.grid.clear_path_visualization()
         
         # Restore initial obstacle positions if they were captured
-        if self.initial_movable_obstacles:
+        if restore_obstacle and self.initial_movable_obstacles:
             self.grid.set_movable_obstacles(self.initial_movable_obstacles)
-        
+            
+        if not restore_obstacle:
+            self.initial_movable_obstacles.clear()
+
         # Reset safety counter
         self.states_explored = 0
         
